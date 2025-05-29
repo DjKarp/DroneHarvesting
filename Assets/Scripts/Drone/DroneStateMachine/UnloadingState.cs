@@ -12,6 +12,9 @@ namespace DroneHarvesting
         {
             _currentDrone = drone;
             _currentDrone.StartUnloading();
+
+            _currentDrone.DroneStateUI.SetStateText("Unloading Resource");
+            _currentDrone.DroneStateUI.SetColor(Color.red);
         }
 
         public void UpdateState()
@@ -21,7 +24,7 @@ namespace DroneHarvesting
 
         public void ExitState()
         {
-
+            _currentDrone.DroneStateUI.SetStateText("");
         }
     }
 }

@@ -12,7 +12,10 @@ namespace DroneHarvesting
         public void EnterState(Drone drone)
         {
             _currentDrone = drone;
-            _resourceService = GameObject.FindAnyObjectByType<ResourceService>();
+            _resourceService = _currentDrone.ResourceService;
+
+            _currentDrone.DroneStateUI.SetStateText("Searching");
+            _currentDrone.DroneStateUI.SetColor(Color.white);
         }        
 
         public void UpdateState()
@@ -31,7 +34,7 @@ namespace DroneHarvesting
 
         public void ExitState()
         {
-
+            _currentDrone.DroneStateUI.SetStateText("");
         }
     }
 }

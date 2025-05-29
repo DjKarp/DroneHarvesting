@@ -13,6 +13,9 @@ namespace DroneHarvesting
         public void EnterState(Drone drone)
         {
             _currentDrone = drone;
+
+            _currentDrone.DroneStateUI.SetStateText("Moving To Resource");
+            _currentDrone.DroneStateUI.SetColor(Color.green);
         }
 
         public void UpdateState()
@@ -34,7 +37,7 @@ namespace DroneHarvesting
 
         public void ExitState()
         {
-
+            _currentDrone.DroneStateUI.SetStateText("");
         }
     }
 }

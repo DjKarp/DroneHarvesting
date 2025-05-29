@@ -19,6 +19,12 @@ namespace DroneHarvesting
         private Base _homeBase;
         public Vector3 CurrentBaseUnloadingPosition { get => _homeBase.DroneUnloadPointPosition; }
 
+        private ResourceService _resourceService;
+        public ResourceService ResourceService { get => _resourceService; }
+
+        private DroneStateUI _droneStateUI;
+        public DroneStateUI DroneStateUI { get => _droneStateUI; }
+
         private NavMeshAgent _navMeshAgent;        
         private float _harvestTime = 2.0f;
 
@@ -27,6 +33,8 @@ namespace DroneHarvesting
         private DroneView _droneView;
         private DronePool _dronePool;
 
+        private Transform _cameraTransform;
+
         private SignalBus _signalBus;
         private UnloadingFXPool _unloadingFXPool;
 
@@ -34,11 +42,12 @@ namespace DroneHarvesting
 
 
         [Inject]
-        public void Construct(DronePool dronePool, SignalBus signalBus, UnloadingFXPool unloadingFXPool)
+        public void Construct(DronePool dronePool, SignalBus signalBus, UnloadingFXPool unloadingFXPool, ResourceService resourceService)
         {
             _dronePool = dronePool;
             _signalBus = signalBus;
             _unloadingFXPool = unloadingFXPool;
+            _resourceService = resourceService;
         }
 
         private void Awake()
@@ -46,6 +55,8 @@ namespace DroneHarvesting
             _transform = gameObject.transform;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _droneView = GetComponentInChildren<DroneView>();
+            _cameraTransform = Camera.main.transform;
+            _droneStateUI = GetComponentInChildren<DroneStateUI>();
         }
 
         public void Init(DroneData.DroneTeam droneTeam, Base homeBase)
@@ -56,6 +67,8 @@ namespace DroneHarvesting
             _transform.position = _homeBase.DroneSpawnPointPosition + (Random.insideUnitSphere * 4.0f);
 
             _signalBus.Subscribe<DroneSpeedSignal>(ChangeDronSpeed);
+
+            _droneStateUI.SetLookTarget(_cameraTransform);
 
             ChangeState(new SearchingState());
         }

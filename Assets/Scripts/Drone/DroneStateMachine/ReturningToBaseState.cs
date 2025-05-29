@@ -14,6 +14,9 @@ namespace DroneHarvesting
         {
             _currentDrone = drone;
             _currentDrone.SetHomeBaseDestination();
+
+            _currentDrone.DroneStateUI.SetStateText("Returning To Base");
+            _currentDrone.DroneStateUI.SetColor(Color.magenta);
         }
 
         public void UpdateState()
@@ -28,7 +31,7 @@ namespace DroneHarvesting
 
         public void ExitState()
         {
-
+            _currentDrone.DroneStateUI.SetStateText("");
         }
     }
 }

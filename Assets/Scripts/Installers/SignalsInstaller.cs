@@ -37,6 +37,10 @@ namespace DroneHarvesting
             Container
                 .DeclareSignal<DroneShowHidePathSignal>()
                 .OptionalSubscriber();
+
+            Container
+                .DeclareSignal<DroneShowHideInfoSignal>()
+                .OptionalSubscriber();
         }
     }
 }
