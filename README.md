@@ -102,7 +102,7 @@ download link
 
 
 Склонируй проект:
-git clone https://github.com/DjKarp/Triplets_Animal_Match.git
+git clone https://github.com/DjKarp/DroneHarvesting.git
 Открыть в Unity 2022.3+ (URP)
 Установить Zenject, DOTween, TMPro, NavMesh
 
