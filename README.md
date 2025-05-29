@@ -1,5 +1,3 @@
-logo
-
 <h1 align="center">Drone Harvesting — Тестовое задание Unity C# Developer</h1>
 
 <p align="center">
@@ -43,12 +41,37 @@ logo
 - DOTween (анимации Дронов - Scaling)
 - Custom FX (Particles, Light)
 
-video
-screens
+
+## ▶️ Видео демонстрация
+
+<p align="Left">  
+<b>Смотреть Видеотрейлер на RuTube - Кликни по картинке</b><br/>
+</p>
+<p align="center">
+(https://rutube.ru/video/9224921be653d880d2162724f79da8b7/)   
+</p>
+
+<p align="Left">  
+<b>Или посмотреть на Google Drive</b><br/>
+</p>
+<p align="center">
+(https://drive.google.com/file/d/1n0vKd-tU5XcfrAmWUYY658zPdWG-H0vQ/view?usp=sharing)
+
+
+## 🎥 Скриншоты
+<p align="center">
+  <img src="https://redleggames.com/Games/DroneHarvesting/1920/Screen_01.png" width="200"/>
+  <img src="https://redleggames.com/Games/DroneHarvesting/1920/Screen_02.png" width="200"/>
+  <img src="https://redleggames.com/Games/DroneHarvesting/1920/Screen_03.png" width="200"/>
+  <img src="https://redleggames.com/Games/DroneHarvesting/1920/Screen_04.png" width="200"/>
+  <img src="https://redleggames.com/Games/DroneHarvesting/1920/Screen_05.png" width="200"/>
+  <img src="https://redleggames.com/Games/DroneHarvesting/1920/Screen_06.png" width="200"/>
+</p>
+
 
 ## 📁 Структура проекта
 <pre> ```Assets/
-├── Materials/             # Тестовые материалы и текстуры
+├── Materials/             # Тестовые материалы и текстуры. QuickOutline материалы.
 │
 ├── Prefab/                # Префабы Дронов, Собираемого ресурса и эффекта выгрузки. А также DroneHarvestingGameSettings - настройки игры (подробности чуть ниже)
 │
@@ -61,7 +84,9 @@ screens
 ├── Scripts/
 │   ├── Base/              # Скрипт Базы дронов
 │   ├── Drone/             # Скрипты принадлежащие Дронам: Данные, Пул дронов, Сервис создания и удаления, Выбор внешнего вида от команды
-│   │└── DroneStateMachine/# State Состояния поведения Дронов
+│   │  └── UI              # Отображения состояния Дрона и Выделение Дрона
+│   │  └── DroneStateMachi # State Состояния поведения Дронов
+│   ├── EntryPoint/        # Bootstrap и EntryPoint скрипты
 │   ├── FX/                # Пул эффектов и сам эффект
 │   ├── Installers/        # Zenject Installer'ы
 │   ├── Resources/         # Скрипты для объектов Собираемых ресурсов и их пула
@@ -82,7 +107,7 @@ screens
 | `BlueTeamMaterial`      | Материал с цветом для Синей команды           |
 | `RedTeamMaterial`       | Материал с цветом для Красной команды         |
 
-Scriptable Object screen
+<img src="https://redleggames.com/Games/DroneHarvesting/DroneHarvestingGameSettings.png"/>
 
 ## 🧪 Технологии
 
@@ -98,7 +123,11 @@ Scriptable Object screen
 
 Скачай архив, распакуй и запусти:
 
-download link
+скачать с моего сайта -> 
+https://redleggames.com/Games/DroneHarvesting/DroneHarvesting.zip
+
+скачать с Google Drive -> 
+https://drive.google.com/file/d/1xciQAumFeCiucPvHKV17yqReFyZrr9yI/view?usp=sharing
 
 
 Склонируй проект:
