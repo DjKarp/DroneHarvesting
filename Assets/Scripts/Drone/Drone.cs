@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
-using DG.Tweening;
 
 namespace DroneHarvesting
 {
@@ -10,42 +9,47 @@ namespace DroneHarvesting
     public class Drone : MonoBehaviour
     {
         private Transform _transform;
+        public Transform Transform { get => _transform; }
         public Vector3 Position { get => _transform.position; set => _transform.position = value; }
+
 
         private Resource _currentTargetResource;
         public Resource CurrentTargetResource { get => _currentTargetResource; set => _currentTargetResource = value; }
 
+
         private Base _homeBase;
         public Vector3 CurrentBaseUnloadingPosition { get => _homeBase.DroneUnloadPointPosition; }
+
 
         private ResourceService _resourceService;
         public ResourceService ResourceService { get => _resourceService; }
 
+
         private DroneStateUI _droneStateUI;
         public DroneStateUI DroneStateUI { get => _droneStateUI; }
 
-        private NavMeshAgent _navMeshAgent;        
-        private float _harvestTime = 2.0f;
 
+        private NavMeshAgent _navMeshAgent;
+        public NavMeshAgent NavMeshAgent { get => _navMeshAgent; }
+
+        
         private IDroneState _currentDronState;
-        private DroneData.DroneTeam _currentDroneTeam;
+        public DroneData.DroneTeam CurrentDroneTeam { get; private set; }
         private DroneView _droneView;
         private DronePool _dronePool;
 
         private Transform _cameraTransform;
 
-        private SignalBus _signalBus;
-        private UnloadingFXPool _unloadingFXPool;
-
-        private Tween _tween;
+        public SignalBus SignalBus { get; private set; }
+        public UnloadingFXPool UnloadingFXPool { get; private set; }
 
 
         [Inject]
         public void Construct(DronePool dronePool, SignalBus signalBus, UnloadingFXPool unloadingFXPool, ResourceService resourceService)
         {
             _dronePool = dronePool;
-            _signalBus = signalBus;
-            _unloadingFXPool = unloadingFXPool;
+            SignalBus = signalBus;
+            UnloadingFXPool = unloadingFXPool;
             _resourceService = resourceService;
         }
 
@@ -60,12 +64,12 @@ namespace DroneHarvesting
 
         public void Init(DroneData.DroneTeam droneTeam, Base homeBase)
         {
-            _currentDroneTeam = droneTeam;
-            _droneView.SetNewMaterialOnTeam(_currentDroneTeam);
+            CurrentDroneTeam = droneTeam;
+            _droneView.SetNewMaterialOnTeam(CurrentDroneTeam);
             _homeBase = homeBase;
             _transform.position = _homeBase.DroneSpawnPointPosition + (Random.insideUnitSphere * 4.0f);
 
-            _signalBus.Subscribe<DroneSpeedSignal>(ChangeDronSpeed);
+            SignalBus.Subscribe<DroneSpeedSignal>(ChangeDronSpeed);
 
             _droneStateUI.SetLookTarget(_cameraTransform);
 
@@ -81,7 +85,7 @@ namespace DroneHarvesting
                 _currentTargetResource.IsTaken = false;
                 _currentTargetResource = null;
             }
-            _signalBus.TryUnsubscribe<DroneSpeedSignal>(ChangeDronSpeed);
+            SignalBus.TryUnsubscribe<DroneSpeedSignal>(ChangeDronSpeed);
 
             _dronePool.Despawn(this);
         }
@@ -108,44 +112,6 @@ namespace DroneHarvesting
             _navMeshAgent.SetDestination(position);
         }
 
-        public void StartHarvesting()
-        {
-            StartCoroutine(Harvesting());
-        }
-
-        private IEnumerator Harvesting()
-        {
-            _navMeshAgent.isStopped = true;
-            _tween = _transform.DOShakeScale(_harvestTime, strength: 0.5f, vibrato: 5);
-
-            yield return new WaitForSeconds(_harvestTime);
-
-            if (_currentTargetResource != null)
-                _currentTargetResource.Despawn();
-
-            _currentTargetResource = null;
-            _navMeshAgent.isStopped = false;
-            ChangeState(new ReturningToBaseState());
-        }
-
-        public void StartUnloading()
-        {
-            StartCoroutine(Unloading());
-        }
-
-        private IEnumerator Unloading()
-        {
-            _navMeshAgent.isStopped = true;
-            _tween = _transform.DOPunchScale(_transform.localScale * 1.1f, _harvestTime / 2.0f, vibrato: 1);
-
-            yield return new WaitForSeconds(1.0f);
-
-            _unloadingFXPool.Spawn(Position);
-            _signalBus.Fire(new UnloadResourceSignal(_currentDroneTeam));
-            _navMeshAgent.isStopped = false;
-            ChangeState(new SearchingState());
-        }
-
         private void ChangeDronSpeed(DroneSpeedSignal droneSpeedSignal)
         {
             _navMeshAgent.speed = droneSpeedSignal.DroneSpeed;
@@ -153,10 +119,8 @@ namespace DroneHarvesting
 
         private void OnDisable()
         {
-            if (_signalBus != null) 
-                _signalBus.TryUnsubscribe<DroneSpeedSignal>(ChangeDronSpeed);
-
-            _tween.Kill(true);
+            if (SignalBus != null) 
+                SignalBus.TryUnsubscribe<DroneSpeedSignal>(ChangeDronSpeed);
         }
     }
 }
