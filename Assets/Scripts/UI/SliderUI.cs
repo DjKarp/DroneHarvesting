@@ -8,7 +8,7 @@ namespace DroneHarvesting
 {
     public class SliderUI : MonoBehaviour
     {
-        private Slider _slider;
+        protected Slider Slider;
 
         protected SignalBus SignalBus;
 
@@ -20,8 +20,8 @@ namespace DroneHarvesting
 
         private void Awake()
         {
-            _slider = GetComponentInChildren<Slider>();
-            _slider.onValueChanged.AddListener(_ => SliderChangedValue(_));
+            Slider = GetComponentInChildren<Slider>();
+            Slider.onValueChanged.AddListener(_ => SliderChangedValue(_));
         }
 
         protected virtual void SliderChangedValue(float newSpeedValue)

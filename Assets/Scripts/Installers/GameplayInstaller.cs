@@ -6,15 +6,16 @@ namespace DroneHarvesting
     public class GameplayInstaller : MonoInstaller
     {
         [SerializeField] private ResourceService _resourceService;
-        [SerializeField] private GameObject _resourcePrefab;
-
-        [SerializeField] private GameObject _dronePrefab;
         [SerializeField] private DroneService _droneService;
+
+        [SerializeField] private DroneHarvestingGameSettings _gameSettings;
+        
 
         public override void InstallBindings()
         {
             BindDrone();
             BindResource();
+            BindGameSettings();
         }
 
         private void BindDrone()
@@ -26,8 +27,8 @@ namespace DroneHarvesting
 
             Container
                 .BindMemoryPool<Drone, DronePool>()
-                .WithInitialSize(10)
-                .FromComponentInNewPrefab(_dronePrefab)
+                .WithInitialSize(_gameSettings.TotalDroneCount)
+                .FromComponentInNewPrefab(_gameSettings.DronePrefab)
                 .UnderTransform(_droneService.gameObject.transform);
         }
 
@@ -41,8 +42,15 @@ namespace DroneHarvesting
             Container
                 .BindMemoryPool<Resource, ResourcePool>()
                 .WithInitialSize(20)
-                .FromComponentInNewPrefab(_resourcePrefab)
+                .FromComponentInNewPrefab(_gameSettings.ResourcePrefab)
                 .UnderTransform(_resourceService.gameObject.transform);
+        }
+
+        private void BindGameSettings()
+        {
+            Container
+                .BindInstance(_gameSettings)
+                .AsSingle();
         }
     }
 }

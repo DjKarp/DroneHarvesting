@@ -39,6 +39,8 @@ namespace DroneHarvesting
                 Vector3 spawnPosition;
                 float distanceToNearestResource = 0.0f;
 
+                yield return new WaitForSeconds(_spawnInterval);
+
                 do
                 {
                     spawnPosition = new Vector3(Random.Range(_spawnAreaMin.x, _spawnAreaMax.x), 0.0f, Random.Range(_spawnAreaMin.z, _spawnAreaMax.z));
@@ -62,8 +64,6 @@ namespace DroneHarvesting
                     resource.SetPosition(spawnPosition);
                     _resources.Add(resource);
                 }
-
-                yield return new WaitForSeconds(_spawnInterval);
             }
         }
 

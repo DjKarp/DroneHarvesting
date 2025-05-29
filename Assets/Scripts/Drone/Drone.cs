@@ -19,7 +19,7 @@ namespace DroneHarvesting
         public Vector3 CurrentBasePosition { get => _homeBase.Position; }
 
         private NavMeshAgent _navMeshAgent;        
-        private float _harvestTime = 5f;
+        private float _harvestTime = 2.0f;
 
         private IDroneState _currentDronState;
         private DroneData.DroneTeam _currentDroneTeam;
@@ -119,7 +119,7 @@ namespace DroneHarvesting
         {
             _navMeshAgent.isStopped = true;
 
-            yield return new WaitForSeconds(_harvestTime / 2.0f);
+            yield return new WaitForSeconds(1.0f);
 
             _signalBus.Fire(new UnloadResourceSignal(_currentDroneTeam));
             _navMeshAgent.isStopped = false;

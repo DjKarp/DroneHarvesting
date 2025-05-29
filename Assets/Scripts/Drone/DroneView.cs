@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace DroneHarvesting
 {
@@ -8,21 +9,21 @@ namespace DroneHarvesting
     {
         private MeshRenderer _meshRenderer;
         private DroneData.DroneTeam _currentDroneTeam = DroneData.DroneTeam.Blue;
-
+        private DroneHarvestingGameSettings _gameSettings;
         private Dictionary<DroneData.DroneTeam, Material> _droneTeamMaterials = new Dictionary<DroneData.DroneTeam, Material>();
+
+        [Inject]
+        public void Construct(DroneHarvestingGameSettings gameSettings)
+        {
+            _gameSettings = gameSettings;
+        }
 
         private void Awake()
         {
             _meshRenderer = GetComponent<MeshRenderer>();
-
-            Material blueMaterial = Resources.Load<Material>("Prototype_512x512_Blue1");
-            Material redMaterial = Resources.Load<Material>("Prototype_512x512_Purple");
-
-            if (blueMaterial != null)
-                _droneTeamMaterials.Add(DroneData.DroneTeam.Blue, blueMaterial);           
-
-            if (redMaterial != null)
-                _droneTeamMaterials.Add(DroneData.DroneTeam.Red, redMaterial);
+            
+            _droneTeamMaterials.Add(DroneData.DroneTeam.Blue, _gameSettings.BlueTeamMaterial);             
+            _droneTeamMaterials.Add(DroneData.DroneTeam.Red, _gameSettings.RedTeamMaterial);
         }
 
         public void SetNewMaterialOnTeam(DroneData.DroneTeam droneTeam)
