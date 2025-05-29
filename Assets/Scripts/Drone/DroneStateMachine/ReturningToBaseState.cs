@@ -14,8 +14,6 @@ namespace DroneHarvesting
         {
             _currentDrone = drone;
             _currentDrone._navMeshAgent.SetDestination(_currentDrone._homeBase.Position);
-
-            Debug.Log("Enter on ReturningToBaseState " + _currentDrone.name);
         }
 
         public void UpdateState()

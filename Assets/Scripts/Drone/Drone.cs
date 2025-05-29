@@ -50,9 +50,7 @@ namespace DroneHarvesting
             yield return new WaitForSeconds(_harvestTime);
 
             if (_currentTargetResource != null)
-            {
-                Destroy(_currentTargetResource.gameObject);
-            }
+                _currentTargetResource.Despawn();
 
             _currentTargetResource = null;
             _navMeshAgent.isStopped = false;

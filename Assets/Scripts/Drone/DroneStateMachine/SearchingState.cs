@@ -13,8 +13,6 @@ namespace DroneHarvesting
         {
             _currentDrone = drone;
             _resourceService = GameObject.FindAnyObjectByType<ResourceService>();
-
-            Debug.Log("Enter on SearchingState " + _currentDrone.name);
         }        
 
         public void UpdateState()

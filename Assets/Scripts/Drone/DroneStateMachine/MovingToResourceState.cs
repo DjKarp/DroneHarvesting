@@ -13,8 +13,6 @@ namespace DroneHarvesting
         public void EnterState(Drone drone)
         {
             _currentDrone = drone;
-
-            Debug.Log("Enter on MovingToResourceState " + _currentDrone.name);
         }
 
         public void UpdateState()

@@ -12,8 +12,6 @@ namespace DroneHarvesting
         {
             _currentDrone = drone;
             _currentDrone.StartHarvesting();
-
-            Debug.Log("Enter on HarvestingState " + _currentDrone.name);
         }
 
         public void UpdateState()
