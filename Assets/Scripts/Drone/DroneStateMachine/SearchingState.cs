@@ -23,8 +23,8 @@ namespace DroneHarvesting
             {
                 targetResource.IsTaken = true;
 
-                _currentDrone._currentTargetResource = targetResource;
-                _currentDrone._navMeshAgent.SetDestination(targetResource.Position);
+                _currentDrone.CurrentTargetResource = targetResource;
+                _currentDrone.SetTargetDestination(targetResource.Position);
                 _currentDrone.ChangeState(new MovingToResourceState());
             }
         }

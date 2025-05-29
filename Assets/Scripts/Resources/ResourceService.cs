@@ -10,7 +10,7 @@ namespace DroneHarvesting
         [SerializeField] private Vector3 _spawnAreaMin;
         [SerializeField] private Vector3 _spawnAreaMax;
 
-        private float _spawnInterval = 5.0f;
+        private float _spawnInterval = 1.0f;
         private float _minSpawnDistance = 5.0f;
 
         private List<Resource> _resources = new List<Resource>();
@@ -33,11 +33,24 @@ namespace DroneHarvesting
             while (true)
             {
                 Vector3 spawnPosition;
-                //do
+                float distanceToNearestResource = 0.0f;
+
+                do
                 {
                     spawnPosition = new Vector3(Random.Range(_spawnAreaMin.x, _spawnAreaMax.x), 0.0f, Random.Range(_spawnAreaMin.z, _spawnAreaMax.z));
+                    Resource nearestResource = GetNearestFreeResource(spawnPosition, true);
+
+                    if (nearestResource != null)
+                    {
+                        distanceToNearestResource = Vector3.Distance(spawnPosition, nearestResource.Position);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                //while ();
+                while (distanceToNearestResource < _minSpawnDistance);
+
                 Resource resource = _resourcePool.Spawn();
 
                 if (resource != null)
@@ -55,16 +68,16 @@ namespace DroneHarvesting
             _resources.Remove(resource);
         }
 
-        public Resource GetNearestFreeResource(Vector3 dronPosition)
+        public Resource GetNearestFreeResource(Vector3 position, bool isNeedResourcedFree = false)
         {
             Resource closestResource = null;
             float minDistane = Mathf.Infinity;
 
             foreach (Resource resource in _resources)
             {
-                if (resource.IsTaken == false)
+                if (isNeedResourcedFree || resource.IsTaken == false)
                 {
-                    float tempDistance = Vector3.Distance(dronPosition, resource.Position);
+                    float tempDistance = Vector3.Distance(position, resource.Position);
 
                     if (tempDistance < minDistane)
                     {

@@ -8,7 +8,7 @@ namespace DroneHarvesting
     {
         [SerializeField] private Transform _droneSpawnPoint;
 
-        public Vector3 DroneSpaenPointPosition { get => _droneSpawnPoint.transform.position; }
+        public Vector3 DroneSpawnPointPosition { get => _droneSpawnPoint.transform.position; }
 
         public Vector3 Position { get => transform.position; }
     }

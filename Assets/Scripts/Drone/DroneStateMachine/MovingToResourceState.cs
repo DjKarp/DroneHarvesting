@@ -17,13 +17,13 @@ namespace DroneHarvesting
 
         public void UpdateState()
         {
-            if (_currentDrone._currentTargetResource == null)
+            if (_currentDrone.CurrentTargetResource == null)
             {
                 _currentDrone.ChangeState(new SearchingState());
             }
             else
             {
-                float tempDistance = Vector3.Distance(_currentDrone.Position, _currentDrone._currentTargetResource.Position);
+                float tempDistance = Vector3.Distance(_currentDrone.Position, _currentDrone.CurrentTargetResource.Position);
 
                 if (tempDistance < _stopDistanceToResource)
                 {

@@ -13,12 +13,12 @@ namespace DroneHarvesting
         public void EnterState(Drone drone)
         {
             _currentDrone = drone;
-            _currentDrone._navMeshAgent.SetDestination(_currentDrone._homeBase.Position);
+            _currentDrone.SetHomeBaseDestination();
         }
 
         public void UpdateState()
         {
-            float tempDistance = Vector3.Distance(_currentDrone.Position, _currentDrone._homeBase.Position);
+            float tempDistance = Vector3.Distance(_currentDrone.Position, _currentDrone.CurrentBasePosition);
 
             if (tempDistance < _stopDistanceToBase)
             {
