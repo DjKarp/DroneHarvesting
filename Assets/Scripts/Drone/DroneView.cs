@@ -7,6 +7,7 @@ namespace DroneHarvesting
     public class DroneView : MonoBehaviour
     {
         private MeshRenderer _meshRenderer;
+        private DroneData.DroneTeam _currentDroneTeam = DroneData.DroneTeam.Blue;
 
         private Dictionary<DroneData.DroneTeam, Material> _droneTeamMaterials = new Dictionary<DroneData.DroneTeam, Material>();
 
@@ -26,7 +27,13 @@ namespace DroneHarvesting
 
         public void SetNewMaterialOnTeam(DroneData.DroneTeam droneTeam)
         {
-            _meshRenderer.material = _droneTeamMaterials[droneTeam];
+            _currentDroneTeam = droneTeam;
+            _meshRenderer.material = GetTeamMaterial();
+        }
+
+        public Material GetTeamMaterial()
+        {
+            return _droneTeamMaterials[_currentDroneTeam];
         }
     }
 }

@@ -26,11 +26,14 @@ namespace DroneHarvesting
         private DroneView _droneView;
         private DronePool _dronePool;
 
+        private SignalBus _signalBus;
+
 
         [Inject]
-        public void Construct(DronePool dronePool)
+        public void Construct(DronePool dronePool, SignalBus signalBus)
         {
             _dronePool = dronePool;
+            _signalBus = signalBus;
         }
 
         private void Awake()
@@ -47,14 +50,22 @@ namespace DroneHarvesting
             _homeBase = homeBase;
             _transform.position = _homeBase.DroneSpawnPointPosition + (Random.insideUnitSphere * 4.0f);
 
+            _signalBus.Subscribe<DroneSpeedSignal>(ChangeDronSpeed);
+
             ChangeState(new SearchingState());
         }
 
         public void Despawn()
         {
             _homeBase = null;
-            _currentTargetResource.IsTaken = false;
-            _currentTargetResource = null;
+
+            if (_currentTargetResource != null)
+            {
+                _currentTargetResource.IsTaken = false;
+                _currentTargetResource = null;
+            }
+            _signalBus.TryUnsubscribe<DroneSpeedSignal>(ChangeDronSpeed);
+
             _dronePool.Despawn(this);
         }
 
@@ -110,8 +121,20 @@ namespace DroneHarvesting
 
             yield return new WaitForSeconds(_harvestTime / 2.0f);
 
+            _signalBus.Fire(new UnloadResourceSignal(_currentDroneTeam));
             _navMeshAgent.isStopped = false;
             ChangeState(new SearchingState());
+        }
+
+        private void ChangeDronSpeed(DroneSpeedSignal droneSpeedSignal)
+        {
+            _navMeshAgent.speed = droneSpeedSignal.DroneSpeed;
+        }
+
+        private void OnDisable()
+        {
+            if (_signalBus != null) 
+                _signalBus.TryUnsubscribe<DroneSpeedSignal>(ChangeDronSpeed);
         }
     }
 }

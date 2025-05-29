@@ -15,17 +15,25 @@ namespace DroneHarvesting
         private List<Drone> _activeBlueDrones = new List<Drone>();
 
         private DronePool _dronePool;
+        private SignalBus _signalBus;
 
 
         [Inject]
-        public void Construct(DronePool dronePool)
+        public void Construct(DronePool dronePool, SignalBus signalBus)
         {
             _dronePool = dronePool;
-        }
+            _signalBus = signalBus;
+    }
 
         public void Init()
         {
             SetupDrones(_dronePool.NumTotal);
+            _signalBus.Subscribe<DroneCountSignal>(SetupDrones);
+        }
+
+        private void SetupDrones(DroneCountSignal droneCountSignal)
+        {
+            SetupDrones(droneCountSignal.DronCount);
         }
 
         public void SetupDrones(int count)

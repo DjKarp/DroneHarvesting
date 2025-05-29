@@ -10,21 +10,25 @@ namespace DroneHarvesting
         [SerializeField] private Vector3 _spawnAreaMin;
         [SerializeField] private Vector3 _spawnAreaMax;
 
-        private float _spawnInterval = 1.0f;
+        private float _spawnInterval = 5.0f;
         private float _minSpawnDistance = 5.0f;
 
         private List<Resource> _resources = new List<Resource>();
 
         private ResourcePool _resourcePool;
+        private SignalBus _signalBus;
 
         [Inject]
-        public void Construct(ResourcePool resourcePool)
+        public void Construct(ResourcePool resourcePool, SignalBus signalBus)
         {
             _resourcePool = resourcePool;
+            _signalBus = signalBus;
         }
 
         public void Init()
         {
+            _signalBus.Subscribe<ResourcesGenerationTimeSignal>(ChangeSpawnInterval);
+
             StartCoroutine(SpawnResourced());
         }
 
@@ -88,6 +92,11 @@ namespace DroneHarvesting
             }
 
             return closestResource;
+        }
+
+        private void ChangeSpawnInterval(ResourcesGenerationTimeSignal generationTimeSignal)
+        {
+            _spawnInterval = Mathf.Clamp(generationTimeSignal.GenerationTime, 1.0f, 100.0f);
         }
     }
 }

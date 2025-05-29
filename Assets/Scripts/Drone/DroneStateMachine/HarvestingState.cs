@@ -21,7 +21,7 @@ namespace DroneHarvesting
 
         public void ExitState()
         {
-            Debug.Log("Exit from HarvestingState " + _currentDrone.name);
+
         }
     }
 }
