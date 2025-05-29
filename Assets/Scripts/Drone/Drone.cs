@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
+using DG.Tweening;
 
 namespace DroneHarvesting
 {
@@ -16,7 +17,7 @@ namespace DroneHarvesting
         public Resource CurrentTargetResource { get => _currentTargetResource; set => _currentTargetResource = value; }
 
         private Base _homeBase;
-        public Vector3 CurrentBasePosition { get => _homeBase.Position; }
+        public Vector3 CurrentBaseUnloadingPosition { get => _homeBase.DroneUnloadPointPosition; }
 
         private NavMeshAgent _navMeshAgent;        
         private float _harvestTime = 2.0f;
@@ -27,13 +28,17 @@ namespace DroneHarvesting
         private DronePool _dronePool;
 
         private SignalBus _signalBus;
+        private UnloadingFXPool _unloadingFXPool;
+
+        private Tween _tween;
 
 
         [Inject]
-        public void Construct(DronePool dronePool, SignalBus signalBus)
+        public void Construct(DronePool dronePool, SignalBus signalBus, UnloadingFXPool unloadingFXPool)
         {
             _dronePool = dronePool;
             _signalBus = signalBus;
+            _unloadingFXPool = unloadingFXPool;
         }
 
         private void Awake()
@@ -83,7 +88,7 @@ namespace DroneHarvesting
 
         public void SetHomeBaseDestination()
         {
-            SetTargetDestination(_homeBase.Position);
+            SetTargetDestination(_homeBase.DroneUnloadPointPosition);
         }
 
         public void SetTargetDestination(Vector3 position)
@@ -99,6 +104,7 @@ namespace DroneHarvesting
         private IEnumerator Harvesting()
         {
             _navMeshAgent.isStopped = true;
+            _tween = _transform.DOShakeScale(_harvestTime, strength: 0.5f, vibrato: 5);
 
             yield return new WaitForSeconds(_harvestTime);
 
@@ -118,9 +124,11 @@ namespace DroneHarvesting
         private IEnumerator Unloading()
         {
             _navMeshAgent.isStopped = true;
+            _tween = _transform.DOPunchScale(_transform.localScale * 1.1f, _harvestTime / 2.0f, vibrato: 1);
 
             yield return new WaitForSeconds(1.0f);
 
+            _unloadingFXPool.Spawn(Position);
             _signalBus.Fire(new UnloadResourceSignal(_currentDroneTeam));
             _navMeshAgent.isStopped = false;
             ChangeState(new SearchingState());
@@ -135,6 +143,8 @@ namespace DroneHarvesting
         {
             if (_signalBus != null) 
                 _signalBus.TryUnsubscribe<DroneSpeedSignal>(ChangeDronSpeed);
+
+            _tween.Kill(true);
         }
     }
 }

@@ -901,6 +901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _droneSpawnPoint: {fileID: 0}
+  _droneUnloadPoint: {fileID: 0}
 --- !u!135 &191872566
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1204,6 +1205,7 @@ Transform:
   m_Children:
   - {fileID: 1383240792}
   - {fileID: 985786434}
+  - {fileID: 1445911457}
   m_Father: {fileID: 182777871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &399004580
@@ -1219,6 +1221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _droneSpawnPoint: {fileID: 985786434}
+  _droneUnloadPoint: {fileID: 1445911457}
 --- !u!208 &399004581
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1480,6 +1483,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 480010711}
   m_CullTransparentMesh: 1
+--- !u!1 &510074865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 510074867}
+  - component: {fileID: 510074866}
+  m_Layer: 0
+  m_Name: FXInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &510074866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510074865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5875c7f0f4a66a4e8026ee60839b0ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unloadingFXPrefab: {fileID: 7393530842340000407, guid: 336caae1f60b22c46baaed3d1abbbafd, type: 3}
+  _parentTransform: {fileID: 271164893}
+--- !u!4 &510074867
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510074865}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1842018928}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &533467205
 GameObject:
   m_ObjectHideFlags: 0
@@ -2759,6 +2808,7 @@ Transform:
   m_Children:
   - {fileID: 191872564}
   - {fileID: 102534975}
+  - {fileID: 1586470800}
   m_Father: {fileID: 182777871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1357406509
@@ -2774,6 +2824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _droneSpawnPoint: {fileID: 102534975}
+  _droneUnloadPoint: {fileID: 1586470800}
 --- !u!208 &1357406510
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2906,6 +2957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _droneSpawnPoint: {fileID: 0}
+  _droneUnloadPoint: {fileID: 0}
 --- !u!135 &1383240794
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3176,6 +3228,37 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1445911456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1445911457}
+  m_Layer: 0
+  m_Name: DronUnloadPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1445911457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445911456}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.464, y: 0, z: 0.43}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 399004576}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1487234759
 GameObject:
   m_ObjectHideFlags: 0
@@ -3605,6 +3688,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1582371885}
   m_CullTransparentMesh: 1
+--- !u!1 &1586470799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1586470800}
+  m_Layer: 0
+  m_Name: DronUnloadPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1586470800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586470799}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.473, y: 0, z: 0.418}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1357406505}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1597408404
 GameObject:
   m_ObjectHideFlags: 0
@@ -4452,6 +4566,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 51939983}
   - {fileID: 665455307}
+  - {fileID: 510074866}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -4484,6 +4599,7 @@ Transform:
   m_Children:
   - {fileID: 51939982}
   - {fileID: 665455308}
+  - {fileID: 510074867}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1869228855

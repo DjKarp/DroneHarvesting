@@ -10,7 +10,7 @@ namespace DroneHarvesting
         [SerializeField] private Vector3 _spawnAreaMin;
         [SerializeField] private Vector3 _spawnAreaMax;
 
-        private float _spawnInterval = 5.0f;
+        private float _spawnInterval = 2.0f;
         private float _minSpawnDistance = 5.0f;
 
         private List<Resource> _resources = new List<Resource>();

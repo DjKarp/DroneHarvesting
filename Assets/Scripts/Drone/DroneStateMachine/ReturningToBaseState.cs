@@ -18,7 +18,7 @@ namespace DroneHarvesting
 
         public void UpdateState()
         {
-            float tempDistance = Vector3.Distance(_currentDrone.Position, _currentDrone.CurrentBasePosition);
+            float tempDistance = Vector3.Distance(_currentDrone.Position, _currentDrone.CurrentBaseUnloadingPosition);
 
             if (tempDistance < _stopDistanceToBase)
             {
