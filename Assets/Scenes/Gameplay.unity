@@ -984,6 +984,7 @@ GameObject:
   m_Component:
   - component: {fileID: 271164893}
   - component: {fileID: 271164894}
+  - component: {fileID: 271164895}
   m_Layer: 0
   m_Name: DronService
   m_TagString: Untagged
@@ -1020,6 +1021,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blueBase: {fileID: 399004580}
   _redBase: {fileID: 1357406509}
+--- !u!114 &271164895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271164892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe17460b0a9320d4f9f2be2ec2f0dae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _droneLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &284906384
 GameObject:
   m_ObjectHideFlags: 0
@@ -3589,7 +3605,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1383240791
 GameObject:
   m_ObjectHideFlags: 0

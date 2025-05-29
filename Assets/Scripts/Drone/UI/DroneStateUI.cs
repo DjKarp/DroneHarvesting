@@ -55,7 +55,7 @@ namespace DroneHarvesting
             }
         }
 
-        private void ActivateInfo(DroneShowHideInfoSignal droneShowHideInfoSignal)
+        public void ActivateInfo(DroneShowHideInfoSignal droneShowHideInfoSignal)
         {
             _isShowedInfo = droneShowHideInfoSignal.IsShowInfo;            
             _canvas.gameObject.SetActive(_isShowedInfo);
