@@ -140,6 +140,8 @@ Services/ResourceService управляет не только спавном р�
 
 Скачай архив, распакуй и запусти готовый Build:
 
+https://github.com/DjKarp/DroneHarvesting/releases
+
 скачать с моего сайта -> 
 https://redleggames.com/Games/DroneHarvesting/DroneHarvesting.zip
 
