@@ -25,23 +25,19 @@ namespace DroneHarvesting
 
         }
 
-        public void ExitState()
-        {
-            _currentDrone.DroneStateUI.SetStateText("");
-        }
-
         private IEnumerator Harvesting()
         {
-            _currentDrone.NavMeshAgent.isStopped = true;
-            _tween = _currentDrone.Transform.DOShakeScale(_harvestTime, strength: 0.5f, vibrato: 5);
+            _currentDrone.DroneMovement.StopMovement();            
 
             yield return new WaitForSeconds(_harvestTime);
+
+            _tween = _currentDrone.Transform.DOShakeScale(_harvestTime, strength: 0.5f, vibrato: 5);
 
             if (_currentDrone.CurrentTargetResource != null)
                 _currentDrone.CurrentTargetResource.Despawn();
 
             _currentDrone.CurrentTargetResource = null;
-            _currentDrone.NavMeshAgent.isStopped = false;
+            _currentDrone.DroneMovement.ResumeMovement();
             _currentDrone.ChangeState(new ReturningToBaseState());
         }
 

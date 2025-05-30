@@ -7,13 +7,13 @@ namespace DroneHarvesting
     public class EntryPoint : MonoBehaviour
     {
         private ResourceService _resourceService;
-        private DroneService _droneService;
+        private DroneSpawnService _droneSpawnService;
 
         [Inject]
-        public void Construct(ResourceService resourceService, DroneService droneService)
+        public void Construct(ResourceService resourceService, DroneSpawnService droneService)
         {
             _resourceService = resourceService;
-            _droneService = droneService;
+            _droneSpawnService = droneService;
         }
 
         private void Start()
@@ -27,7 +27,7 @@ namespace DroneHarvesting
 
             yield return new WaitForEndOfFrame();
 
-            _droneService.Init();
+            _droneSpawnService.Init();
         }
     }
 }

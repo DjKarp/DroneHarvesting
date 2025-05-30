@@ -4,6 +4,5 @@ namespace DroneHarvesting
     {
         void EnterState(Drone drone);
         void UpdateState();
-        void ExitState();
     }
 }

@@ -23,6 +23,7 @@ namespace DroneHarvesting
         private void Start()
         {
             _signalBus.Subscribe<DroneShowHideInfoSignal>(ActivateInfo);
+            _cameraTransform = Camera.main.transform;
         }
 
         private void LateUpdate()
@@ -38,11 +39,6 @@ namespace DroneHarvesting
         public void SetColor(Color color)
         {
             _stateText.color = color;
-        }
-
-        public void SetLookTarget(Transform cameraTransform)
-        {
-            _cameraTransform = cameraTransform;
         }
 
         private void RotateToTarget()

@@ -147,10 +147,10 @@ GameObject:
   - component: {fileID: 1433286461439952629}
   - component: {fileID: 815752708448521915}
   - component: {fileID: 2274631930703815948}
+  - component: {fileID: 5173628522751824166}
   - component: {fileID: 1731381410807169315}
   - component: {fileID: 6034276877510313155}
   - component: {fileID: 4660385768019049541}
-  - component: {fileID: 5173628522751824166}
   m_Layer: 0
   m_Name: DronView
   m_TagString: Untagged
@@ -199,6 +199,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _droneStateUI: {fileID: 3073963034494259442}
+--- !u!114 &5173628522751824166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621260759852295289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0.94259137, b: 0, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!33 &1731381410807169315
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -270,24 +288,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5173628522751824166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4621260759852295289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.94259137, b: 0, a: 1}
-  outlineWidth: 3
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &5067323384232414566
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,8 +400,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8502343383322829365}
   - component: {fileID: 2906392259778803021}
-  - component: {fileID: 636640024880848799}
   - component: {fileID: 8317264525367904653}
+  - component: {fileID: 7941637181805927075}
+  - component: {fileID: 636640024880848799}
   m_Layer: 0
   m_Name: DronPrefab
   m_TagString: Untagged
@@ -439,6 +440,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf83cc661c5f5054db906d00972f87ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8317264525367904653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872424816790212755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3e24a5747234c4bab7e85b3711642e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7941637181805927075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872424816790212755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80488838b0fdadb449bc08b9fde03adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &636640024880848799
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -461,18 +486,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8317264525367904653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5872424816790212755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da3e24a5747234c4bab7e85b3711642e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7806200738940259652
 GameObject:
   m_ObjectHideFlags: 0

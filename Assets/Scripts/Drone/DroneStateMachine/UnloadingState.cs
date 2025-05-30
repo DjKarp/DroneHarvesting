@@ -24,21 +24,16 @@ namespace DroneHarvesting
 
         }
 
-        public void ExitState()
-        {
-            _currentDrone.DroneStateUI.SetStateText("");
-        }
-
         private IEnumerator Unloading()
         {
-            _currentDrone.NavMeshAgent.isStopped = true;
-            _tween = _currentDrone.Transform.DOPunchScale(_currentDrone.Transform.localScale * 1.1f, 1.0f, vibrato: 1);
+            _currentDrone.DroneMovement.StopMovement();            
 
             yield return new WaitForSeconds(1.0f);
 
+            _tween = _currentDrone.Transform.DOPunchScale(_currentDrone.Transform.localScale * 1.1f, 1.0f, vibrato: 1);
             _currentDrone.UnloadingFXPool.Spawn(_currentDrone.Position);
             _currentDrone.SignalBus.Fire(new UnloadResourceSignal(_currentDrone.CurrentDroneTeam));
-            _currentDrone.NavMeshAgent.isStopped = false;
+            _currentDrone.DroneMovement.ResumeMovement();
             _currentDrone.ChangeState(new SearchingState());
         }
 

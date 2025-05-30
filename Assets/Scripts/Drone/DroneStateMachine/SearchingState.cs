@@ -25,14 +25,9 @@ namespace DroneHarvesting
                 targetResource.IsTaken = true;
 
                 _currentDrone.CurrentTargetResource = targetResource;
-                _currentDrone.SetTargetDestination(targetResource.Position);
+                _currentDrone.DroneMovement.SetTargetDestination(targetResource.Position);
                 _currentDrone.ChangeState(new MovingToResourceState());
             }
-        }
-
-        public void ExitState()
-        {
-            _currentDrone.DroneStateUI.SetStateText("");
         }
     }
 }

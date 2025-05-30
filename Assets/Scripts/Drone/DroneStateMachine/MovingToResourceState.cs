@@ -32,10 +32,5 @@ namespace DroneHarvesting
                 }
             }
         }
-
-        public void ExitState()
-        {
-            _currentDrone.DroneStateUI.SetStateText("");
-        }
     }
 }

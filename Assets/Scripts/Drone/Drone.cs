@@ -12,31 +12,22 @@ namespace DroneHarvesting
         public Transform Transform { get => _transform; }
         public Vector3 Position { get => _transform.position; set => _transform.position = value; }
 
-
-        private Resource _currentTargetResource;
-        public Resource CurrentTargetResource { get => _currentTargetResource; set => _currentTargetResource = value; }
-
+        public Resource CurrentTargetResource { get; set; }
 
         private Base _homeBase;
-        public Vector3 CurrentBaseUnloadingPosition { get => _homeBase.DroneUnloadPointPosition; }
+        public Vector3 CurrentBaseUnloadingPosition { get => _homeBase.GetNextDroneUnloadPointPosition(); }
+                
+        public ResourceService ResourceService { get; private set; }
+
+        public DroneStateUI DroneStateUI { get; private set; }
+
+        public DroneMovement DroneMovement { get; private set; }
 
 
-        private ResourceService _resourceService;
-        public ResourceService ResourceService { get => _resourceService; }
-
-
-        private DroneStateUI _droneStateUI;
-        public DroneStateUI DroneStateUI { get => _droneStateUI; }
-
-
-        private NavMeshAgent _navMeshAgent;
-        public NavMeshAgent NavMeshAgent { get => _navMeshAgent; }
-
-        
         private IDroneState _currentDronState;
         public DroneData.DroneTeam CurrentDroneTeam { get; private set; }
         private DroneView _droneView;
-        private DronePool _dronePool;
+        private DronePool _dronePool;        
 
         private Transform _cameraTransform;
 
@@ -50,28 +41,27 @@ namespace DroneHarvesting
             _dronePool = dronePool;
             SignalBus = signalBus;
             UnloadingFXPool = unloadingFXPool;
-            _resourceService = resourceService;
+            ResourceService = resourceService;
         }
 
         private void Awake()
         {
             _transform = gameObject.transform;
-            _navMeshAgent = GetComponent<NavMeshAgent>();
             _droneView = GetComponentInChildren<DroneView>();
             _cameraTransform = Camera.main.transform;
-            _droneStateUI = GetComponentInChildren<DroneStateUI>();
+            DroneStateUI = GetComponentInChildren<DroneStateUI>();
+            DroneMovement = GetComponent<DroneMovement>();
         }
 
         public void Init(DroneData.DroneTeam droneTeam, Base homeBase)
         {
             CurrentDroneTeam = droneTeam;
             _droneView.SetNewMaterialOnTeam(CurrentDroneTeam);
+
             _homeBase = homeBase;
+            DroneMovement.Init(_homeBase);
+
             _transform.position = _homeBase.DroneSpawnPointPosition + (Random.insideUnitSphere * 4.0f);
-
-            SignalBus.Subscribe<DroneSpeedSignal>(ChangeDronSpeed);
-
-            _droneStateUI.SetLookTarget(_cameraTransform);
 
             ChangeState(new SearchingState());
         }
@@ -80,12 +70,11 @@ namespace DroneHarvesting
         {
             _homeBase = null;
 
-            if (_currentTargetResource != null)
+            if (CurrentTargetResource != null)
             {
-                _currentTargetResource.IsTaken = false;
-                _currentTargetResource = null;
+                CurrentTargetResource.IsTaken = false;
+                CurrentTargetResource = null;
             }
-            SignalBus.TryUnsubscribe<DroneSpeedSignal>(ChangeDronSpeed);
 
             _dronePool.Despawn(this);
         }
@@ -97,30 +86,8 @@ namespace DroneHarvesting
 
         public void ChangeState(IDroneState newDroneState)
         {
-            _currentDronState?.ExitState();
             _currentDronState = newDroneState;
             _currentDronState?.EnterState(this);
-        }
-
-        public void SetHomeBaseDestination()
-        {
-            SetTargetDestination(_homeBase.DroneUnloadPointPosition);
-        }
-
-        public void SetTargetDestination(Vector3 position)
-        {
-            _navMeshAgent.SetDestination(position);
-        }
-
-        private void ChangeDronSpeed(DroneSpeedSignal droneSpeedSignal)
-        {
-            _navMeshAgent.speed = droneSpeedSignal.DroneSpeed;
-        }
-
-        private void OnDisable()
-        {
-            if (SignalBus != null) 
-                SignalBus.TryUnsubscribe<DroneSpeedSignal>(ChangeDronSpeed);
         }
     }
 }

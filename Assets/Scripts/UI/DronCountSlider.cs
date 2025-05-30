@@ -17,7 +17,7 @@ namespace DroneHarvesting
         private void Start()
         {
             Slider.maxValue = _gameSettings.TotalDroneCount;
-            Slider.value = Mathf.Round(_gameSettings.TotalDroneCount / 2);
+            Slider.value = _gameSettings.TotalDroneCount;
         }
 
         protected override void SliderChangedValue(float newSpeedValue)

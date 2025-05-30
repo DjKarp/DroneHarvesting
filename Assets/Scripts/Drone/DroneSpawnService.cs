@@ -5,7 +5,7 @@ using Zenject;
 
 namespace DroneHarvesting
 {
-    public class DroneService : MonoBehaviour
+    public class DroneSpawnService : MonoBehaviour
     {
         [SerializeField] private Base _blueBase;
         [SerializeField] private Base _redBase;
@@ -16,17 +16,20 @@ namespace DroneHarvesting
         private DronePool _dronePool;
         private SignalBus _signalBus;
 
+        private DroneHarvestingGameSettings _gameSettings;
+
 
         [Inject]
-        public void Construct(DronePool dronePool, SignalBus signalBus)
+        public void Construct(DronePool dronePool, SignalBus signalBus, DroneHarvestingGameSettings gameSettings)
         {
             _dronePool = dronePool;
             _signalBus = signalBus;
-    }
+            _gameSettings = gameSettings;
+        }
 
         public void Init()
         {
-            SetupDrones(_dronePool.NumTotal);
+            SetupDrones(_gameSettings.TotalDroneCount);
             _signalBus.Subscribe<DroneCountSignal>(SetupDrones);
         }
 
