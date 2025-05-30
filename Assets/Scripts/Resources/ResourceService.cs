@@ -96,7 +96,7 @@ namespace DroneHarvesting
 
         private void ChangeSpawnInterval(ResourcesGenerationTimeSignal generationTimeSignal)
         {
-            _spawnInterval = Mathf.Clamp(generationTimeSignal.GenerationTime, 1.0f, 100.0f);
+            _spawnInterval = generationTimeSignal.GenerationTime;
         }
     }
 }

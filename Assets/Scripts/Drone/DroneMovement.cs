@@ -21,13 +21,13 @@ namespace DroneHarvesting
 
         private void Start()
         {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
-            SignalBus.Subscribe<DroneSpeedSignal>(ChangeSpeed);
+            _navMeshAgent = GetComponent<NavMeshAgent>();            
         }
 
         public void Init(Base homeBase)
         {
             _homeBase = homeBase;
+            SignalBus.Subscribe<DroneSpeedSignal>(ChangeSpeed);
         }
 
         public void SetHomeBaseDestination()
