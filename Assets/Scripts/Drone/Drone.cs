@@ -27,9 +27,7 @@ namespace DroneHarvesting
         private IDroneState _currentDronState;
         public DroneData.DroneTeam CurrentDroneTeam { get; private set; }
         private DroneView _droneView;
-        private DronePool _dronePool;        
-
-        private Transform _cameraTransform;
+        private DronePool _dronePool;
 
         public SignalBus SignalBus { get; private set; }
         public UnloadingFXPool UnloadingFXPool { get; private set; }
@@ -48,7 +46,6 @@ namespace DroneHarvesting
         {
             _transform = gameObject.transform;
             _droneView = GetComponentInChildren<DroneView>();
-            _cameraTransform = Camera.main.transform;
             DroneStateUI = GetComponentInChildren<DroneStateUI>();
             DroneMovement = GetComponent<DroneMovement>();
         }
