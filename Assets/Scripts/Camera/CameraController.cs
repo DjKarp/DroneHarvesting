@@ -8,7 +8,7 @@ namespace DroneHarvesting
     {
         public float _moveSpeed = 50f;
         public float _zoomSpeed = 55f;
-        public float _rotationSpeed = 0.1f;
+        public float _rotationSpeed = 65f;
 
         void Update()
         {
@@ -19,7 +19,7 @@ namespace DroneHarvesting
 
             if (Input.GetMouseButton(1))
             {
-                transform.RotateAround(Vector3.zero, Vector3.up, Input.GetAxis("Mouse X") * _rotationSpeed);
+                transform.RotateAround(Vector3.zero, Vector3.up, Input.GetAxis("Mouse X") * _rotationSpeed * Time.deltaTime);
             }
         }
     }
